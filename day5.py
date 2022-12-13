@@ -52,7 +52,7 @@ def main():
     for stack in stacks:
         result += stack[0]
 
-    print(result)
+    print("Day 5 - top crates: ", result)
 
 
 if __name__ == "__main__":
