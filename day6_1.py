@@ -1,7 +1,5 @@
 # https://adventofcode.com/2022/day/6
 
-packet_size = 14
-
 
 def main():
     f = open("input6.txt", "r")
@@ -11,14 +9,14 @@ def main():
 
     for char in lines[0]:
         data += char
-        buffer = data[len(data) - packet_size:len(data)]
+        buffer = data[len(data) - 4:len(data)]
 
-        if len(buffer) < packet_size:
+        if len(buffer) < 4:
             continue
 
         if len(set(buffer)) == len(buffer):
             print("Day 6 - first repeated sequence after",
-                  len(data), "characters: ")
+                  len(data), "characters")
             break
 
 

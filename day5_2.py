@@ -6,7 +6,6 @@ from functools import reduce
 
 crate_pattern = r"(\s{3}|\[[A-Z]\])\s"
 move_pattern = r"move ([0-9]*) from ([0-9]*) to ([0-9]*)"
-reverse = False
 
 
 def clean(x): return x.replace(" ", "").replace("[", "").replace("]", "")
@@ -44,8 +43,6 @@ def main():
         size, origin, to = move
 
         moving = stacks[origin - 1][0: size]
-        if reverse:
-            moving.reverse()
         stacks[to - 1][0:0] = moving
         stacks[origin - 1] = stacks[origin - 1][size:len(stacks[origin - 1])]
 

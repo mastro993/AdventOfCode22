@@ -1,7 +1,5 @@
 # https://adventofcode.com/2022/day/2
 
-apply_strategy = True
-
 
 def convert(char):
     match char:
@@ -20,16 +18,15 @@ def main():
         strategy = round.split(" ")[1]
         opponent, player = [convert(m) for m in round.split(" ")]
 
-        if apply_strategy:
-            if strategy == "X":
-                # player must lose
-                player = (opponent - 1) % 3
-            elif strategy == "Z":
-                # player must win
-                player = (opponent + 1) % 3
-            elif strategy == "Y":
-                # player must draw
-                player = opponent
+        if strategy == "X":
+            # player must lose
+            player = (opponent - 1) % 3
+        elif strategy == "Z":
+            # player must win
+            player = (opponent + 1) % 3
+        elif strategy == "Y":
+            # player must draw
+            player = opponent
 
         points += 6 if player - opponent == 1 or player - \
             opponent == -2 else 0  # win or lose
