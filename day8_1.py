@@ -1,73 +1,57 @@
 # https://adventofcode.com/2022/day/1
 
-map = []
+
+trees = []
 
 
-def is_visible_from_top(tx, ty):
-    height = map[tx][ty]
+def is_visible_from(tx, ty, dx, dy):
+    height = trees[tx][ty]
 
-    for x in range(0, tx):
-        if map[x][ty] >= height:
+    while True:
+        tx += dx
+        ty += dy
+
+        if tx < 0 or tx >= len(trees):
+            return True
+
+        if ty < 0 or ty >= len(trees[tx]):
+            return True
+
+        if trees[tx][ty] >= height:
             return False
-
-    return True
-
-
-def is_visible_from_bottom(tx, ty):
-    height = map[tx][ty]
-
-    for x in range(tx + 1, len(map)):
-        if map[x][ty] >= height:
-            return False
-
-    return True
-
-
-def is_visible_from_left(tx, ty):
-    height = map[tx][ty]
-
-    for y in range(0, ty):
-        if map[tx][y] >= height:
-            return False
-
-    return True
-
-
-def is_visible_from_right(tx, ty):
-    height = map[tx][ty]
-
-    for y in range(ty + 1, len(map[tx])):
-        if map[tx][y] >= height:
-            return False
-
-    return True
 
 
 def is_visible_at(tx, ty):
-    is_visible = is_visible_from_left(tx, ty) or is_visible_from_right(
-        tx, ty) or is_visible_from_top(tx, ty) or is_visible_from_bottom(tx, ty)
-    return is_visible
+
+    if is_visible_from(tx, ty, 0, -1):
+        return True
+
+    if is_visible_from(tx, ty, 0, 1):
+        return True
+
+    if is_visible_from(tx, ty, -1, 0):
+        return True
+
+    if is_visible_from(tx, ty, 1, 0):
+        return True
+
+    return False
 
 
 def main():
     f = open("input8.txt", "r")
     rows = [l.rstrip() for l in f.readlines()]
 
-    # Building trees map
+    # Building trees
     for row in rows:
-        trees = []
-        for tree in row:
-            trees.append(int(tree))
-        map.append(trees)
+        trees.append([int(tree) for tree in list(row)])
 
-    map_perimeter_size = (len(map) - 1) * 2 + (len(map[0]) - 1) * 2
-    visible_trees = map_perimeter_size
+    visible_trees = 0
 
-    for x in range(1, len(map) - 1):
-        for y in range(1, len(map[x]) - 1):
-            visible_trees += 1 if is_visible_at(x, y) else 0
-
-    # 1805
+    for x in range(0, len(trees)):
+        for y in range(0, len(trees[x])):
+            if is_visible_at(x, y):
+                visible_trees += 1
 
     print("Day 8 - visible trees: ", visible_trees)
 
