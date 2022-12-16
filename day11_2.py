@@ -33,7 +33,7 @@ def main():
         for monkey in monkeys:
             for _ in range(len(monkey[0])):
                 item = monkey[0].pop(0)
-                worry_level = monkey[1](item) // 3
+                worry_level = monkey[1](item)
                 if worry_level % monkey[2] == 0:
                     monkeys[monkey[3]][0].append(worry_level)
                 else:

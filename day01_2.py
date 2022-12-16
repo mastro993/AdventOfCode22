@@ -2,7 +2,7 @@
 
 
 def main():
-    f = open("input1.txt", "r")
+    f = open("input01.txt", "r")
     lines = [l.rstrip() for l in f.readlines()]
 
     topCalories = [0, 0, 0]

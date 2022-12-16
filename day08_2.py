@@ -1,17 +1,20 @@
 # https://adventofcode.com/2022/day/8
 
+from functools import reduce
 
+
+edges = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 trees = []
 trees_score = []
 
 
-def scenic_score_from(tx, ty, dx, dy):
+def scenic_score_from(tx, ty, edge):
     height = trees[tx][ty]
     score = 0
 
     while True:
-        tx += dx
-        ty += dy
+        tx += edge[0]
+        ty += edge[1]
 
         if tx < 0 or tx >= len(trees):
             break
@@ -28,17 +31,12 @@ def scenic_score_from(tx, ty, dx, dy):
     return score
 
 
-def scenic_score_at(tx, ty):
-    score = 1
-    score *= scenic_score_from(tx, ty, 0, -1)
-    score *= scenic_score_from(tx, ty, 0, 1)
-    score *= scenic_score_from(tx, ty, -1, 0)
-    score *= scenic_score_from(tx, ty, 1, 0)
-    return score
+def scenic_score_at(tx, ty): return reduce(
+    lambda x, y: x * y, [scenic_score_from(tx, ty, edge) for edge in edges])
 
 
 def main():
-    f = open("input8.txt", "r")
+    f = open("input08.txt", "r")
     rows = [l.rstrip() for l in f.readlines()]
 
     # Building trees

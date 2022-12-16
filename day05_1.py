@@ -12,7 +12,7 @@ def clean(x): return x.replace(" ", "").replace("[", "").replace("]", "")
 
 
 def main():
-    f = open("input5.txt", "r")
+    f = open("input05.txt", "r")
     lines = f.readlines()
 
     stacks = [[], [], [], [], [], [], [], [], []]
@@ -23,11 +23,9 @@ def main():
         line = lines.pop(0)
         crates = [clean(l) for l in re.findall(crate_pattern, line)]
 
-        i = 0
-        for crate in crates:
+        for index, crate in enumerate(crates):
             if crate != "":
-                stacks[i].append(crate)
-            i += 1
+                stacks[index].append(crate)
 
         if line == "\n":
             break
@@ -39,18 +37,13 @@ def main():
         moves.append(move)
 
     # Performing moves
-    for move in moves:
-        size, origin, to = move
-
+    for size, origin, destination in moves:
         moving = stacks[origin - 1][0: size]
         moving.reverse()
-        stacks[to - 1][0:0] = moving
+        stacks[destination - 1][0:0] = moving
         stacks[origin - 1] = stacks[origin - 1][size:len(stacks[origin - 1])]
 
-    result = ''
-
-    for stack in stacks:
-        result += stack[0]
+    result = ''.join([s[0] for s in stacks])
 
     print("Day 5 - top crates: ", result)
 

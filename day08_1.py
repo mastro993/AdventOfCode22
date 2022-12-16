@@ -1,15 +1,16 @@
 # https://adventofcode.com/2022/day/8
 
 
+edges = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 trees = []
 
 
-def is_visible_from(tx, ty, dx, dy):
+def is_visible_from(tx, ty, edge):
     height = trees[tx][ty]
 
     while True:
-        tx += dx
-        ty += dy
+        tx += edge[0]
+        ty += edge[1]
 
         if tx < 0 or tx >= len(trees):
             return True
@@ -23,23 +24,15 @@ def is_visible_from(tx, ty, dx, dy):
 
 def is_visible_at(tx, ty):
 
-    if is_visible_from(tx, ty, 0, -1):
-        return True
-
-    if is_visible_from(tx, ty, 0, 1):
-        return True
-
-    if is_visible_from(tx, ty, -1, 0):
-        return True
-
-    if is_visible_from(tx, ty, 1, 0):
-        return True
+    for edge in edges:
+        if is_visible_from(tx, ty, edge):
+            return True
 
     return False
 
 
 def main():
-    f = open("input8.txt", "r")
+    f = open("input08.txt", "r")
     rows = [l.rstrip() for l in f.readlines()]
 
     # Building trees

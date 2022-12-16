@@ -9,7 +9,7 @@ def convert(char):
 
 
 def main():
-    f = open("input2.txt", "r")
+    f = open("input02.txt", "r")
     lines = [l.rstrip() for l in f.readlines()]
 
     points = 0

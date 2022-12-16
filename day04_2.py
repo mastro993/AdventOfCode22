@@ -2,7 +2,7 @@
 
 
 def main():
-    f = open("input4.txt", "r")
+    f = open("input04.txt", "r")
     lines = [l.rstrip() for l in f.readlines()]
 
     count = 0

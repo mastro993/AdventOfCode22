@@ -31,7 +31,7 @@ def main():
             x += stack.pop(0)
 
     for row in crt:
-        print("".join(row))
+        print(" ".join(row))
 
 
 if __name__ == "__main__":

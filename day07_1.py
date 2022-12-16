@@ -1,8 +1,6 @@
 # https://adventofcode.com/2022/day/7
 
-from collections import OrderedDict
-from csv import DictReader
-import pprint
+
 import re
 
 command_pattern = r"^\$ (cd|ls)[ ]?([a-zA-Z0-9/.]*)?"
@@ -13,7 +11,7 @@ root = ()
 
 
 def main():
-    f = open("input7.txt", "r")
+    f = open("input07.txt", "r")
     lines = [l.rstrip() for l in f.readlines()]
 
     cwd = root

@@ -6,20 +6,15 @@ def priority(char): return ord(char) - \
 
 
 def main():
-    f = open("input3.txt", "r")
+    f = open("input03.txt", "r")
     lines = [l.rstrip() for l in f.readlines()]
 
     priority_sum = 0
-    tmp_lines = []
 
     for line in lines:
-        tmp_lines.append(line)
-
-        if (len(tmp_lines) == 3):
-            type = list(set(tmp_lines[0]) & set(
-                tmp_lines[1]) & set(tmp_lines[2]))
-            priority_sum += priority(type[0])
-            tmp_lines = []
+        first, second = line[:len(line)//2], line[len(line)//2:]
+        type = list(set(first) & set(second))
+        priority_sum += priority(type[0])
 
     print("Day 3 - priority sum: ", priority_sum)
 
