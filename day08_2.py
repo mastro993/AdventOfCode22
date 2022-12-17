@@ -35,23 +35,15 @@ def scenic_score_at(tx, ty): return reduce(
     lambda x, y: x * y, [scenic_score_from(tx, ty, edge) for edge in edges])
 
 
-def main():
-    f = open("input08.txt", "r")
-    rows = [l.rstrip() for l in f.readlines()]
-
-    # Building trees
-    for row in rows:
-        trees.append([int(tree) for tree in list(row)])
-        trees_score.append([0 for _ in list(row)])
-
-    for x in range(0, len(trees)):
-        for y in range(0, len(trees[x])):
-            trees_score[x][y] = scenic_score_at(x, y)
-
-    max_score = max(map(max, trees_score))
-
-    print("Day 8 - max scenic score: ", max_score)
+f = open("input08.txt", "r")
+trees = [list(l.rstrip()) for l in f.readlines()]
+trees_score = [[0 for _ in row] for row in trees]
 
 
-if __name__ == "__main__":
-    main()
+for x in range(0, len(trees)):
+    for y in range(0, len(trees[x])):
+        trees_score[x][y] = scenic_score_at(x, y)
+
+max_score = max(map(max, trees_score))
+
+print("Day 8 - max scenic score: ", max_score)

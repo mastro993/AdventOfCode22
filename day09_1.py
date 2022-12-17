@@ -11,30 +11,25 @@ moves = {
 }
 
 
-def main():
-    f = open("input09.txt", "r")
-    lines = [l.rstrip() for l in f.readlines()]
+f = open("input09.txt", "r")
+lines = [l.rstrip() for l in f.readlines()]
 
-    head = (0, 0)
-    tail = (0, 0)
+head = (0, 0)
+tail = (0, 0)
 
-    previous = None
-    visited = set()
+previous = None
+visited = set()
 
-    for line in lines:
-        direction, steps = line.split(" ")
-        move = moves[direction]
+for line in lines:
+    direction, steps = line.split(" ")
+    move = moves[direction]
 
-        for _ in range(int(steps)):
-            previous = copy.deepcopy(head)
-            head = (head[0] + move[0], head[1] + move[1])
-            distance = math.dist(head, tail)
-            if distance >= 2:
-                tail = copy.deepcopy(previous)
-            visited.add(tail)
+    for _ in range(int(steps)):
+        previous = copy.deepcopy(head)
+        head = (head[0] + move[0], head[1] + move[1])
+        distance = math.dist(head, tail)
+        if distance >= 2:
+            tail = copy.deepcopy(previous)
+        visited.add(tail)
 
-    print("Day 9 - Tail visited ", len(visited), " block")
-
-
-if __name__ == "__main__":
-    main()
+print("Day 9 - Tail visited ", len(visited), " block")

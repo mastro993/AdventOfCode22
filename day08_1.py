@@ -31,23 +31,14 @@ def is_visible_at(tx, ty):
     return False
 
 
-def main():
-    f = open("input08.txt", "r")
-    rows = [l.rstrip() for l in f.readlines()]
+f = open("input08.txt", "r")
+trees = [list(l.rstrip()) for l in f.readlines()]
 
-    # Building trees
-    for row in rows:
-        trees.append([int(tree) for tree in list(row)])
+visible_trees = 0
 
-    visible_trees = 0
+for x in range(0, len(trees)):
+    for y in range(0, len(trees[x])):
+        if is_visible_at(x, y):
+            visible_trees += 1
 
-    for x in range(0, len(trees)):
-        for y in range(0, len(trees[x])):
-            if is_visible_at(x, y):
-                visible_trees += 1
-
-    print("Day 8 - visible trees: ", visible_trees)
-
-
-if __name__ == "__main__":
-    main()
+print("Day 8 - visible trees: ", visible_trees)
