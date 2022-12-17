@@ -1,5 +1,6 @@
 # https://adventofcode.com/2022/day/11
 
+from functools import reduce
 import re
 
 monkey_pattern = r"Monkey [0-9]*:\n.*items: ([0-9,\s]*)\n.*new = (.*)\n.*divisible by ([0-9]*)\n.*monkey ([0-9]*)\n.*monkey ([0-9]*)"
@@ -18,26 +19,27 @@ def main():
     data = f.read()
 
     monkeys = []
+    mod = 1
 
     for items, operation, test, if_true, if_false in re.findall(monkey_pattern, data):
+        test = int(test)
+        mod *= test
         monkeys.append([
             [int(x) for x in items.split(", ")],
             get_operation(operation),
-            int(test),
+            test,
             int(if_true),
             int(if_false),
             0
         ])
 
-    for _ in range(20):
+    for _ in range(10000):
         for monkey in monkeys:
-            for _ in range(len(monkey[0])):
+            while monkey[0]:
                 item = monkey[0].pop(0)
-                worry_level = monkey[1](item)
-                if worry_level % monkey[2] == 0:
-                    monkeys[monkey[3]][0].append(worry_level)
-                else:
-                    monkeys[monkey[4]][0].append(worry_level)
+                lvl = monkey[1](item)
+                dest = monkey[3] if lvl % monkey[2] == 0 else monkey[4]
+                monkeys[dest][0].append(lvl % mod)
                 monkey[5] += 1
 
     monkeys = sorted(monkeys, key=lambda x: x[5], reverse=True)

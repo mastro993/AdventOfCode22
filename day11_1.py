@@ -13,10 +13,6 @@ def get_operation(text):
         case "*": return lambda x: x * x if value == "old" else x * int(value)
 
 
-def test_level(
-    monkey, level): return monkey[3] if level % monkey[2] == 0 else monkey[4]
-
-
 def main():
     f = open("input11.txt", "r")
     data = f.read()
@@ -38,7 +34,7 @@ def main():
             while monkey[0]:
                 item = monkey[0].pop(0)
                 lvl = monkey[1](item) // 3
-                dest = test_level(monkey, lvl)
+                dest = monkey[3] if lvl % monkey[2] == 0 else monkey[4]
                 monkeys[dest][0].append(lvl)
                 monkey[5] += 1
 
