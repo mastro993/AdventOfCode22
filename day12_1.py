@@ -5,14 +5,14 @@ from collections import deque
 f = open("input12.txt", "r")
 map = [list(l.rstrip()) for l in f.readlines()]
 
-start = (0, 0)
+queue = deque()
 end = (0, 0)
 
 for y, row in enumerate(map):
     for x, char in enumerate(row):
-        if char == "S":
-            start = (y, x)
+        if char == "S" or char == "a":
             map[y][x] = 'a'
+            queue.append(((y, x), 0))
         elif char == "E":
             end = (y, x)
             map[y][x] = 'z'
@@ -30,8 +30,6 @@ for y, row in enumerate(map):
         graph[(y, x)] = nodes
 
 
-queue = deque()
-queue.append((start, 0))
 visited = set()
 
 while queue:
